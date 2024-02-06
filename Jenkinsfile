@@ -4,7 +4,7 @@ pipeline {
         maven 'Maven-Jenkins'
     }
     stages {
-        stage('Checkout') {
+        stage('Checkout stage') {
             steps {
                 checkout scmGit(
                     branches: [[name: '*/main']],
@@ -13,10 +13,18 @@ pipeline {
                 )
             }
         }
-        stage('Build Maven') {
+        stage('Build Maven stage') {
             steps {
                 bat 'mvn clean install'
             }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline successfully executed!'
+        }
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
